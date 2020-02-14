@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 # Edit this function to create your own pipeline.
-def create_gradient_img(img,s_thresh=(170, 255), sx_thresh=(30, 100)):
+def create_gradient_img(img,s_thresh=(190, 255), sx_thresh=(30, 100)):
     img = np.copy(img)
     # Convert to HLS color space and separate the V channel
     hls = cv2.cvtColor(img, cv2.COLOR_RGB2HLS)

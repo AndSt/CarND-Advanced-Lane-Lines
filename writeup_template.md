@@ -92,11 +92,14 @@ An output image can be found in [here](./images/test1_binwarped.jpg)
 I did this in `measure_curvature()` from lines 130 through 151 in my code in `src/find_lane_pxl.py`.
 A second order polynomial is fitted for each lane boundary. It is used to compute the radius curvature formula described during the lectures. Note that the scaling needed to be adjusted corresponding to the perspective transformed image.
 
+An output image can be found in [here](output_images/test1_info.jpg)
+
+
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 I implemented this step in lines 23 through 41 in my code in `src/warp.py` in the function `warp_back()`. 
 
-An example output can be found in `images/test1_final.jpg`
+An output image can be found in [here](images/test1_final.jpg)
 
 ---
 
@@ -112,10 +115,8 @@ Here's a [link to my video result](./project_video_output.mp4)
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
-The most time consuming part was the fine tuning of the perspective transform. Another difficulty was the curvature computation. I'm still not entirely sure how Udacity came up with the value for `ym_per_pix`. I'm not sure whether my computation is correct here. The rest works so I except some sort of normalization the computation should be correct.
+The most time consuming part was the fine tuning of the perspective transform. Another difficulty was the curvature computation. I'm still not entirely sure how Udacity came up with the value for `ym_per_pix`. I'm not sure whether my computation is correct here but the values make sense, I think. 
+Another difficulty was the fine-tuning of the multi-image normalization. Here the 
 
-If a shadow comes up or if the lane itself is very bright, the implementation has issues detecting the lane boundaries. 
-
+If a shadow comes up or if the lane itself is very bright, the singel pipeline implementation has issues detecting the lane boundaries. It's circumvented by a multi-image strategy where the last n=10 images are taken into action. Also some outliers are not used. If z=15 continuous outliers are found, the algorithm brings the new values into action.
 Sometimes the adjacent lane has a mistakingly detected gradient and color treshhold. A possible reason is that the constant pressure of tires changed the road depth, thus enabling shadows on the road. We could fine tune more towards white or yellow colors.
-
-In general my implementation could be heavily improved by taking multiple frames into account as opposed one image at a time.
